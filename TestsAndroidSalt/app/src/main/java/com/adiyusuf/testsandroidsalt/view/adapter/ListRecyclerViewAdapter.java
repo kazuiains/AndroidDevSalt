@@ -29,6 +29,7 @@ import org.jetbrains.annotations.NotNull;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Objects;
 
 public class ListRecyclerViewAdapter extends BaseRecyclerView<ArticlesItem, DefaultViewHolder> {
 
@@ -102,7 +103,7 @@ public class ListRecyclerViewAdapter extends BaseRecyclerView<ArticlesItem, Defa
                 Date newDate;
                 try {
                     newDate = apiFormat.parse(currentData.getPublishedAt());
-                    date = defFormat.format(newDate);
+                    date = defFormat.format(Objects.requireNonNull(newDate));
                 } catch (Exception e) {
                     //error convert
                 }

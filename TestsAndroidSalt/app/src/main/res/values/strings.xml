@@ -2,4 +2,6 @@
     <string name="app_name">TestsAndroidSalt</string>
     <string name="data_not_found">data tidak ditemukan</string>
     <string name="image">foto</string>
+    <string name="lanjut_membaca">Lanjut Membaca</string>
+    <string name="author">Author:</string>
 </resources>
