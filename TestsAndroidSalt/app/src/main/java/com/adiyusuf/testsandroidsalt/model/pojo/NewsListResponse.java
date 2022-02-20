@@ -1,9 +1,12 @@
 package com.adiyusuf.testsandroidsalt.model.pojo;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.List;
 import com.google.gson.annotations.SerializedName;
 
-public class NewsListResponse{
+public class NewsListResponse implements Parcelable {
 
 	@SerializedName("totalResults")
 	private int totalResults;
@@ -68,4 +71,52 @@ public class NewsListResponse{
 	public void setCode(String code) {
 		this.code = code;
 	}
+
+	@Override
+	public int describeContents() {
+		return 0;
+	}
+
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+		dest.writeInt(this.totalResults);
+		dest.writeTypedList(this.articles);
+		dest.writeString(this.status);
+		dest.writeString(this.code);
+		dest.writeByte(this.isLoadMore ? (byte) 1 : (byte) 0);
+		dest.writeByte(this.isLast ? (byte) 1 : (byte) 0);
+	}
+
+	public void readFromParcel(Parcel source) {
+		this.totalResults = source.readInt();
+		this.articles = source.createTypedArrayList(ArticlesItem.CREATOR);
+		this.status = source.readString();
+		this.code = source.readString();
+		this.isLoadMore = source.readByte() != 0;
+		this.isLast = source.readByte() != 0;
+	}
+
+	public NewsListResponse() {
+	}
+
+	protected NewsListResponse(Parcel in) {
+		this.totalResults = in.readInt();
+		this.articles = in.createTypedArrayList(ArticlesItem.CREATOR);
+		this.status = in.readString();
+		this.code = in.readString();
+		this.isLoadMore = in.readByte() != 0;
+		this.isLast = in.readByte() != 0;
+	}
+
+	public static final Parcelable.Creator<NewsListResponse> CREATOR = new Parcelable.Creator<NewsListResponse>() {
+		@Override
+		public NewsListResponse createFromParcel(Parcel source) {
+			return new NewsListResponse(source);
+		}
+
+		@Override
+		public NewsListResponse[] newArray(int size) {
+			return new NewsListResponse[size];
+		}
+	};
 }

@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private static boolean isLoading = false;
     private static boolean isLastData = false;
 
-    public ListViewModel viewModel;
+    private ListViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,6 +99,8 @@ public class MainActivity extends AppCompatActivity {
     private void observableMvvm() {
         viewModel.respTopHeadLines().observe(this, response -> {
             Log.i(TAG, "observable: ");
+            refresh.setRefreshing(false);
+
             if (response != null && response.getArticles() != null) {
                 Log.i(TAG, "have response");
 
@@ -171,7 +173,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void refreshListener() {
+        refresh.setOnRefreshListener(() -> {
+            refresh.setRefreshing(true);
+            if (adapter.isNoData()) {
+                adapter.removeNoData();
+            } else {
+                adapter.clear();
+            }
 
+            page = 1;
+            isCalled = false;
+            isLastData = false;
+
+            callApi(false);
+        });
     }
 
     private void loadMoreListener() {
@@ -216,7 +231,7 @@ public class MainActivity extends AppCompatActivity {
         });
         adapter.setOnClickObject((view, position, data) -> {
             Intent detailActivity = new Intent(this, DetailActivity.class);
-//            detailActivity.putExtra("data_for_detail", data);
+            detailActivity.putExtra(DetailActivity.EXTRA_DETAIL_NEWS, (ArticlesItem) data);
             startActivity(detailActivity);
         });
     }

@@ -26,6 +26,10 @@ import com.bumptech.glide.request.RequestOptions;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 public class ListRecyclerViewAdapter extends BaseRecyclerView<ArticlesItem, DefaultViewHolder> {
 
     public ListRecyclerViewAdapter(Context context) {
@@ -93,7 +97,15 @@ public class ListRecyclerViewAdapter extends BaseRecyclerView<ArticlesItem, Defa
                 source = currentData.getSource().getName();
             }
             if (currentData.getPublishedAt() != null) {
-                date = currentData.getPublishedAt();
+                SimpleDateFormat apiFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault());
+                SimpleDateFormat defFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm", Locale.getDefault());
+                Date newDate;
+                try {
+                    newDate = apiFormat.parse(currentData.getPublishedAt());
+                    date = defFormat.format(newDate);
+                } catch (Exception e) {
+                    //error convert
+                }
             }
             if (currentData.getUrlToImage() != null) {
                 img = currentData.getUrlToImage();
@@ -106,8 +118,7 @@ public class ListRecyclerViewAdapter extends BaseRecyclerView<ArticlesItem, Defa
             Glide.with(context)
                     .load(img)
                     .transition(DrawableTransitionOptions.withCrossFade(1000))
-                    .diskCacheStrategy(DiskCacheStrategy.NONE)
-                    .skipMemoryCache(true)
+                    .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
                     .apply(new RequestOptions().override(250, 250))
                     .placeholder(R.drawable.image_not_found)
                     .into(image);
