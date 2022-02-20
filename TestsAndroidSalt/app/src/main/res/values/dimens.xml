@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="padding_top_bottom_item_recycler">10dp</dimen>
+    <dimen name="default_margin_left_right">16dp</dimen>
+    <dimen name="radius">12dp</dimen>
+    <dimen name="button_height">57dp</dimen>
+
+    <dimen name="margin16">16dp</dimen>
+    <dimen name="margin24">24dp</dimen>
+    <dimen name="margin40">40dp</dimen>
+</resources>

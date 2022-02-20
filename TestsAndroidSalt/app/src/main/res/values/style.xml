@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="primaryButton" parent="Widget.MaterialComponents.Button">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">64dp</item>
+        <item name="textAllCaps">false</item>
+        <item name="cornerRadius">10dp</item>
+        <item name="backgroundTint">@color/purple_500</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <!--   [Start Style] Material Edit Text Outlined Box add by Adi Yusuf    -->
+    <style name="textFieldLayoutOutlinedBox" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="helperTextTextColor">@color/color_error</item>
+        <item name="hintTextColor">@color/color_text_gs</item>
+        <item name="android:radius">@dimen/radius</item>
+        <item name="android:layout_marginEnd">@dimen/margin16</item>
+        <item name="android:layout_marginStart">@dimen/margin16</item>
+        <item name="android:layout_marginTop">@dimen/margin24</item>
+        <item name="shapeAppearanceOverlay">@style/textFieldLayoutOutlinedBox.Rounded</item>
+    </style>
+    <style name="textFieldLayoutOutlinedBox.Rounded" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/radius</item>
+    </style>
+    <!--   [End Style] Material Edit Text Outlined Box    -->
+</resources>
